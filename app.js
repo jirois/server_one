@@ -11,6 +11,8 @@ import helmet from "helmet";
 import xss from "xss-clean";
 import cors from "cors";
 import mongoSanitize from "express-mongo-sanitize";
+import notFoundMiddleware from "./middleware/not-found.js";
+import errorHandlerMiddleware from "./middleware/error-handler.js";
 
 app.set("trust proxy", 1);
 app.use(
@@ -31,7 +33,17 @@ app.get("/", (req, res) => {
   res.send("Welcokim!");
 });
 
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
+
 const port = process.env.PORT || 7500;
-app.listen(port, () => {
-  console.log(`Server listening at port ${port}`);
-});
+
+const start = async () => {
+  try {
+    app.listen(port, () => {
+      console.log(`Server listening at port ${port}`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
