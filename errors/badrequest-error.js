@@ -7,3 +7,5 @@ class BadRequestError extends CustomAPIError {
     this.statusCode = StatusCodes.BAD_REQUEST;
   }
 }
+
+export default BadRequestError;
