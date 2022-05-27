@@ -13,6 +13,8 @@ import cors from "cors";
 import mongoSanitize from "express-mongo-sanitize";
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
+import authRouter from "./routes/authRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 
 app.set("trust proxy", 1);
 app.use(
@@ -32,6 +34,9 @@ app.use(cookieParser(process.env.JW_SECRET));
 app.get("/", (req, res) => {
   res.send("Welcokim!");
 });
+
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", userRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
