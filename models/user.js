@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ["admin", "user"],
-    default: user,
+    default: "user",
   },
 });
 
@@ -36,9 +36,9 @@ UserSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-UserSchema.methods.ComparePassword = async function (canditatePassword) {
+UserSchema.methods.comparePassword = async function (canditatePassword) {
   const isMatch = await bcrypt.compare(canditatePassword, this.password);
   return isMatch;
 };
 
-export default mongoose.model("User", UserSchema);
+export default mongoose.models.User || mongoose.model("User", UserSchema);

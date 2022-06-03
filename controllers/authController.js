@@ -1,10 +1,9 @@
 import User from "../models/User.js";
 import { StatusCodes } from "http-status-codes";
-import { attachCookiesToResponse } from "../utils/jwt/js";
+import { attachCookiesToResponse } from "../utils/jwt.js";
 import createTokenUser from "../utils/createTokenUser.js";
 import BadRequestError from "../errors/badrequest-error.js";
 import UnAuthenticatedError from "../errors/unauthenticate-error.js";
-import CustomAPIError from "../errors/custom-error.js";
 
 const register = async (req, res) => {
   const { email, name, password } = req.body;

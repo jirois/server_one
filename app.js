@@ -10,6 +10,7 @@ import rateLimiter from "express-rate-limit";
 import helmet from "helmet";
 import xss from "xss-clean";
 import cors from "cors";
+import connectDb from "./db/connect.js";
 import mongoSanitize from "express-mongo-sanitize";
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
@@ -29,7 +30,7 @@ app.use(xss());
 app.use(mongoSanitize());
 
 app.use(express.json());
-app.use(cookieParser(process.env.JW_SECRET));
+app.use(cookieParser(process.env.JWT_SECRET));
 
 app.get("/", (req, res) => {
   res.send("Welcokim!");
@@ -45,6 +46,7 @@ const port = process.env.PORT || 7500;
 
 const start = async () => {
   try {
+    connectDb(process.env.MONGODB_URL);
     app.listen(port, () => {
       console.log(`Server listening at port ${port}`);
     });
@@ -52,3 +54,4 @@ const start = async () => {
     console.log(error);
   }
 };
+start();

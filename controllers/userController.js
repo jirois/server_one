@@ -3,10 +3,9 @@ import { StatusCodes } from "http-status-codes";
 import createTokenUser from "../utils/createTokenUser.js";
 import checkPermissions from "../utils/checkPermissions.js";
 import { attachCookiesToResponse } from "../utils/jwt.js";
-import CustomAPIError from "../errors/custom-error.js";
 import NotFoundError from "../errors/not-found-error.js";
 import BadRequestError from "../errors/badrequest-error.js";
-import UnAuthenticatedError from "../errors/unauthenticate-error";
+import UnAuthenticatedError from "../errors/unauthenticate-error.js";
 
 const getAllUsers = async (req, res) => {
   console.log(req.user);
